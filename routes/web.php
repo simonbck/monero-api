@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Auth::routes(['register' => false, 'confirm' => false, 'reset' => false, 'verify' => false]);
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/settings', [App\Http\Controllers\SettingsController::class, 'index'])->name('settings');

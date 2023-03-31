@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\changePasswordRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class SettingsController extends Controller
 {
@@ -26,8 +29,12 @@ class SettingsController extends Controller
         return view('settings');
     }
 
-    public function changePassword(Request $request) {
+    public function changePassword(changePasswordRequest $request) {
 
+        $user = User::find(Auth::user()->id);
+        $user->password = \Hash::make($request->input('newPassword'));
+        $user->save();
 
+        return redirect((route('settings')));
     }
 }

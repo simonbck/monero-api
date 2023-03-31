@@ -14,10 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
-Route::get('test', [App\Http\Controllers\API\ApiController::class, 'store'])->middleware('api-key');
-Route::get('delete', [App\Http\Controllers\API\ApiController::class, 'untagAllAccounts'])->middleware('api-key');
+Route::get('payment', [App\Http\Controllers\API\ApiController::class, 'store'])->middleware('api-key');

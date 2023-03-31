@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use MoneroIntegrations\MoneroPhp\walletRPC;
 
@@ -10,15 +11,7 @@ class ApiController extends Controller
 {
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        $walletRPC = new walletRPC(
-            config('wallet_rpc.wallet_rpc_host'),
-            config('wallet_rpc.wallet_rpc_port'),
-            config('wallet_rpc.wallet_rpc_ssl')
-        );
-        $walletRPC->open_wallet(
-            config('wallet_rpc.wallet_rpc_wallet'),
-            config('wallet_rpc.wallet_rpc_wallet_password')
-        );
+        $walletRPC =  app(walletRPC::class);
 
         $create_account = $walletRPC->create_account();
         $walletRPC->tag_accounts([$create_account['account_index']], $request->input('uuid'));
@@ -34,6 +27,13 @@ class ApiController extends Controller
 
         $data = $request->all();
         $data['address'] = $address;
+
+        $transaction = new Transaction();
+        $transaction->amount = $data['amount'];
+        $transaction->callback = $data['callback_url'];
+        $transaction->uuid = $data['uuid'];
+        $transaction->address = $data['address'];
+        $transaction->save();
 
         return response()->json(
                 $data

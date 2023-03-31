@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $pendingTransactions = Transaction::where([
+            ['status', '!=', 'paid']
+        ])->get();
+
+        $completedTransactions = Transaction::where([
+            ['status', '==', 'paid']
+        ])->get();
+
+        return view('home', ['pendingTransactions' => $pendingTransactions, 'completedTransactions' => $completedTransactions]);
     }
 }

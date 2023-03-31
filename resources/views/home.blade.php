@@ -18,10 +18,12 @@
                  </thead>
                  <tbody class="text-center">
                  <tr>
-                     <td>7142-jads-89dasd-dasasd</td>
-                     <td>Marketplace</td>
-                     <td>8AWgjxo6zkSVn7UmNSAm553hoWSnxbjEHbBo7guGzyaiKqg4hHD9rpXdkiShrVbHVa6uPGfpbJS9UHW7QHKFKNRu6AmqUqk</td>
-                     <td>1.2</td>
+                     @foreach ($completedTransactions as $completedTransaction)
+                         <td>{{ $completedTransaction->uuid }}</td>
+                         <td>{{ $completedTransaction->callback }}</td>
+                         <td>{{ $completedTransaction->address }}</td>
+                         <td>{{ $completedTransaction->amount }}</td>
+                     @endforeach
                  </tr>
                  </tbody>
              </table>
@@ -39,21 +41,19 @@
                 <thead class="text-center">
                 <tr>
                     <th scope="col">UUID</th>
-                    <th scope="col">source</th>
+                    <th scope="col">callback</th>
                     <th scope="col">address</th>
                     <th scope="col">amount (xmr)</th>
-                    <th scope="col">amount recieved(xmr)</th>
-                    <th scope="col">confirmations</th>
                 </tr>
                 </thead>
                 <tbody class="text-center">
                 <tr>
-                    <td>7142-jads-89dasd-dasasd</td>
-                    <td>Marketplace</td>
-                    <td>8AWgjxo6zkSVn7UmNSAm553hoWSnxbjEHbBo7guGzyaiKqg4hHD9rpXdkiShrVbHVa6uPGfpbJS9UHW7QHKFKNRu6AmqUqk</td>
-                    <td>1.2</td>
-                    <td>0.0</td>
-                    <td>0</td>
+                    @foreach ($pendingTransactions as $pendingTransaction)
+                        <td>{{ $pendingTransaction->uuid }}</td>
+                        <td>{{ $pendingTransaction->callback }}</td>
+                        <td>{{ $pendingTransaction->address }}</td>
+                        <td>{{ $pendingTransaction->amount }}</td>
+                    @endforeach
                 </tr>
                 </tbody>
             </table>

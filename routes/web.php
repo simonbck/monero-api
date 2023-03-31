@@ -22,3 +22,4 @@ Auth::routes(['register' => false, 'confirm' => false, 'reset' => false, 'verify
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/settings', [App\Http\Controllers\SettingsController::class, 'index'])->name('settings');
+Route::post('/settings/changePassword', [App\Http\Controllers\SettingsController::class, 'changePassword'])->name('changePassword');

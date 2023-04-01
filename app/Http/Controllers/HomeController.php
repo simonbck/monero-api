@@ -29,7 +29,7 @@ class HomeController extends Controller
         ])->get();
 
         $completedTransactions = Transaction::where([
-            ['status', '==', 'paid']
+            ['status', 'paid']
         ])->get();
 
         return view('home', ['pendingTransactions' => $pendingTransactions, 'completedTransactions' => $completedTransactions]);

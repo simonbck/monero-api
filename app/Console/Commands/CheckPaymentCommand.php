@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
 use MoneroIntegrations\MoneroPhp\walletRPC;
 use App\Models\Transaction;
 
@@ -39,11 +40,14 @@ class CheckPaymentCommand extends Command
             $get_account = $walletRPC->get_accounts($transaction->uuid);
             $balance = $walletRPC->getbalance($get_account['subaddress_accounts'][0]['account_index'])['unlocked_balance'];
 
-            if($balance >= $transaction->amount) {
+            $this->info('Balance: '.$walletRPC->getbalance($get_account['subaddress_accounts'][0]['account_index'])['balance']);
+            $this->info('Unlocked Balance: '.$balance);
+            
+            if($balance >= ($transaction->amount * 1000000000000)) {
                 $transaction->status = 'paid';
                 $transaction->save();
 
-                //do callback
+                Http::get($transaction->callback);
             }
         }
     }

@@ -17,14 +17,14 @@
                      </tr>
                  </thead>
                  <tbody class="text-center">
-                 <tr>
                      @foreach ($completedTransactions as $completedTransaction)
+                         <tr>
                          <td>{{ $completedTransaction->uuid }}</td>
                          <td>{{ $completedTransaction->callback }}</td>
                          <td>{{ $completedTransaction->address }}</td>
                          <td>{{ $completedTransaction->amount }}</td>
+                         </tr>
                      @endforeach
-                 </tr>
                  </tbody>
              </table>
          </div>
@@ -47,14 +47,14 @@
                 </tr>
                 </thead>
                 <tbody class="text-center">
-                <tr>
                     @foreach ($pendingTransactions as $pendingTransaction)
+                        <tr>
                         <td>{{ $pendingTransaction->uuid }}</td>
                         <td>{{ $pendingTransaction->callback }}</td>
                         <td>{{ $pendingTransaction->address }}</td>
                         <td>{{ $pendingTransaction->amount }}</td>
+                        </tr>
                     @endforeach
-                </tr>
                 </tbody>
             </table>
         </div>

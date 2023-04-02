@@ -13,7 +13,7 @@
                          <th scope="col">UUID</th>
                          <th scope="col">source</th>
                          <th scope="col">address</th>
-                         <th scope="col">amount (xmr)</th>
+                         <th scope="col">amount (XMR)</th>
                      </tr>
                  </thead>
                  <tbody class="text-center">
@@ -43,7 +43,8 @@
                     <th scope="col">UUID</th>
                     <th scope="col">callback</th>
                     <th scope="col">address</th>
-                    <th scope="col">amount (xmr)</th>
+                    <th scope="col">amount (XMR)</th>
+                    <th scope="col">amount received (XMR)</th>
                 </tr>
                 </thead>
                 <tbody class="text-center">
@@ -53,6 +54,7 @@
                         <td>{{ $pendingTransaction->callback }}</td>
                         <td>{{ $pendingTransaction->address }}</td>
                         <td>{{ $pendingTransaction->amount }}</td>
+                        <td>{{ $pendingTransaction->amount_received }}</td>
                         </tr>
                     @endforeach
                 </tbody>

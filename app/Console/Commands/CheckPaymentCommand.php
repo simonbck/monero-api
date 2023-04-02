@@ -35,15 +35,15 @@ class CheckPaymentCommand extends Command
 
         $walletRPC = app(walletRPC::class);
 
-
         foreach ($transactions as $transaction) {
             $get_account = $walletRPC->get_accounts($transaction->uuid);
-            $balance = $walletRPC->getbalance($get_account['subaddress_accounts'][0]['account_index'])['unlocked_balance'];
+            $balance = $walletRPC->getbalance($get_account['subaddress_accounts'][0]['account_index'])['balance'];
+            $unlocked_balance = $walletRPC->getbalance($get_account['subaddress_accounts'][0]['account_index'])['unlocked_balance'];
 
-            $this->info('Balance: '.$walletRPC->getbalance($get_account['subaddress_accounts'][0]['account_index'])['balance']);
-            $this->info('Unlocked Balance: '.$balance);
-            
-            if($balance >= ($transaction->amount * 1000000000000)) {
+            $transaction->amount_received = $transaction->getXmrToDecimal($balance);
+            $transaction->save();
+
+            if($unlocked_balance >= $transaction->decimal_to_xmr) {
                 $transaction->status = 'paid';
                 $transaction->save();
 

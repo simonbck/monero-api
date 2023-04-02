@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->double('amount', 8, 2);
-            $table->double('amount_received', 8, 2)->default(0);
-            $table->enum('status', ['paid', 'unpaid'])->default('unpaid');
+            $table->double('amount', 16, 12);
+            $table->double('amount_received', 16, 12)->default(0);
+            $table->enum('status', ['paid', 'pending'])->default('pending');
             $table->string('callback');
-            $table->string('uuid');
+            $table->string('uuid')->unique();
             $table->string('address');
             $table->timestamps();
         });
